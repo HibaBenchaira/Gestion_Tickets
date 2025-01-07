@@ -14,34 +14,6 @@ public class GestionTicketsApplication {
 
     public static void main(String[] args) {
 
-        SpringApplication.run(GestionTicketsApplication.class, args);
-
-        List<Role> roles = Arrays.asList(
-                Role.builder().role("Admin").build(),
-                Role.builder()
-                        .role("User")
-                        .build()
-        );
-         List<Departement> departements= Arrays.asList(
-                    Departement.builder()
-                            .nom("IT")
-                            .build(),
-
-                    Departement.builder()
-                            .nom("HR")
-                            .build(),
-
-                    Departement.builder()
-                            .nom("Finance")
-                            .build()
-            );
-        List<PieceJointe> PieceJointes= Arrays.asList(
-                    PieceJointe.builder()
-                            .nomFichier("ticket1").chemin("/Users/bench/Desktop/1.jpeg")
-                            .build()
-            );
-
-
-    }
+        SpringApplication.run(GestionTicketsApplication.class, args);}
 
 }
