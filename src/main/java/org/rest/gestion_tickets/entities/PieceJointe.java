@@ -6,9 +6,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Arrays;
+import java.util.List;
+@Builder
 @Data
 @Entity
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "pieces_jointes")
@@ -23,6 +25,5 @@ public class PieceJointe {
         @ManyToOne
         @JoinColumn(name = "ticket_id")
         private Ticket ticket;
-
     }
 
