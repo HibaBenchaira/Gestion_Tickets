@@ -13,6 +13,7 @@ import java.util.List;
 public class GestionTicketsApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(GestionTicketsApplication.class, args);
 
         List<Role> roles = Arrays.asList(
