@@ -1,16 +1,19 @@
 package org.rest.gestion_tickets.entities;
+
+
+import jakarta.persistence.Entity;
 import jakarta.persistence.*;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "users")
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,8 +25,7 @@ public class User {
     private String domaine;
     private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id")
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @OneToMany(mappedBy = "user")
@@ -32,13 +34,10 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Commentaire> commentaires;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_messages",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "message_id")
-    )
+    @ManyToMany(mappedBy = "users")
     private List<Message> messages;
 }
+
+
 
 

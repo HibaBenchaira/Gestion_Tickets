@@ -1,20 +1,21 @@
 package org.rest.gestion_tickets.entities;
 
+
+import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "messages")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Message {
-
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
@@ -24,10 +25,18 @@ public class Message {
         @Temporal(TemporalType.TIMESTAMP)
         private Date dateEnvoi;
 
-        @ManyToMany(mappedBy = "messages")
-        private List<Ticket> tickets;
+        @ManyToOne
+        @JoinColumn(name = "ticket_id")
+        private Ticket ticket;
 
-        @ManyToMany(mappedBy = "messages")
+        @ManyToMany
+        @JoinTable(
+                name = "message_users",
+                joinColumns = @JoinColumn(name = "message_id"),
+                inverseJoinColumns = @JoinColumn(name = "user_id")
+        )
         private List<User> users;
-    }
+}
+
+
 
