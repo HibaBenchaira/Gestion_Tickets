@@ -33,6 +33,14 @@ public class PieceJointeService {
     public void deletePieceJointe(Long id) {
         pieceJointeRepository.deleteById(id);
     }
-}
+    public boolean isPieceJointeOwner(Long pieceJointeId, Long userId) {
+        PieceJointe pieceJointe = pieceJointeRepository.findById(pieceJointeId).orElse(null);
+        return pieceJointe != null && pieceJointe.getTicket().getUser().getId().equals(userId);
+    }
+    public List<PieceJointe> getPieceJointesByTicketId(Long ticketId) {
+        // Implement the logic to retrieve the list of PieceJointe by ticketId
+        return pieceJointeRepository.findByTicketId(ticketId); // Replace with actual implementation
+    }
+    }
 
 

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DepartementService {
@@ -17,8 +18,8 @@ public class DepartementService {
         return departementRepository.findAll();
     }
 
-    public Departement getDepartementById(Long id) {
-        return departementRepository.findById(id).orElse(null);
+    public Optional<Departement> getDepartementById(Long id) {
+        return Optional.ofNullable(departementRepository.findById(id).orElse(null));
     }
 
     public Departement createDepartement(Departement departement) {
@@ -32,5 +33,6 @@ public class DepartementService {
     public void deleteDepartement(Long id) {
         departementRepository.deleteById(id);
     }
+
 }
 

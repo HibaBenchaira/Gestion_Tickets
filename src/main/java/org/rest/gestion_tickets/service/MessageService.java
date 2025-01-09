@@ -54,5 +54,9 @@ public class MessageService {
         message.getUsers().add(user);
         return messageRepository.save(message);
     }
+    public boolean isMessageOwner(Long messageId, Long userId) {
+        Message message = messageRepository.findById(messageId).orElse(null);
+        return message != null && message.getUsers().stream().anyMatch(user -> user.getId().equals(userId));
+    }
 }
 

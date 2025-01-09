@@ -5,6 +5,7 @@ import org.rest.gestion_tickets.entities.TicketStatus;
 import org.rest.gestion_tickets.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,11 +18,13 @@ public class TicketController {
     private TicketService ticketService;
 
     @GetMapping
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public List<Ticket> getAllTickets() {
         return ticketService.getAllTickets();
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<Ticket> getTicketById(@PathVariable Long id) {
         return ticketService.getTicketById(id)
                 .map(ResponseEntity::ok)
@@ -29,27 +32,32 @@ public class TicketController {
     }
 
     @GetMapping("/status/{status}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public List<Ticket> getTicketsByStatus(@PathVariable TicketStatus status) {
         return ticketService.getTicketsByStatus(status);
     }
 
     @GetMapping("/user/{userId}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public List<Ticket> getTicketsByUserId(@PathVariable Long userId) {
         return ticketService.getTicketsByUserId(userId);
     }
 
     @GetMapping("/departement/{departementId}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public List<Ticket> getTicketsByDepartementId(@PathVariable Long departementId) {
         return ticketService.getTicketsByDepartementId(departementId);
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Ticket> createTicket(@RequestBody Ticket ticket) {
         Ticket createdTicket = ticketService.createTicket(ticket);
         return ResponseEntity.ok(createdTicket);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Ticket> updateTicket(@PathVariable Long id, @RequestBody Ticket ticket) {
         ticket.setId(id);
         Ticket updatedTicket = ticketService.updateTicket(ticket);
@@ -57,6 +65,7 @@ public class TicketController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteTicket(@PathVariable Long id) {
         ticketService.deleteTicket(id);
         return ResponseEntity.ok().build();

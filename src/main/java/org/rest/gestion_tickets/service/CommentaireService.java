@@ -40,5 +40,9 @@ public class CommentaireService {
     public void deleteCommentaire(Long id) {
         commentaireRepository.deleteById(id);
     }
+    public boolean isCommentaireOwner(Long commentaireId, Long userId) {
+        Commentaire commentaire = commentaireRepository.findById(commentaireId).orElse(null);
+        return commentaire != null && commentaire.getUser().getId().equals(userId);
+    }
 }
 
